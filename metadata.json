@@ -1,0 +1,6 @@
+{
+  "name": "Gotcha It!",
+  "description": "Dark premium arcade style app",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
