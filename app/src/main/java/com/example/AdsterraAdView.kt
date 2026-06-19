@@ -69,7 +69,12 @@ fun AdsterraBannerAd(
         AndroidView(
             modifier = Modifier.fillMaxWidth().height(60.dp),
             factory = { context ->
-                WebView(context).apply {
+                val webContext = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                    context.createAttributionContext("Adsterra")
+                } else {
+                    context
+                }
+                WebView(webContext).apply {
                     setBackgroundColor(android.graphics.Color.TRANSPARENT)
                     settings.javaScriptEnabled = true
                     settings.domStorageEnabled = true
