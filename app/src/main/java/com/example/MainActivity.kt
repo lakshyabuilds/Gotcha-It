@@ -384,11 +384,13 @@ fun GotchaApp(playerViewModel: PlayerViewModel = viewModel(), engagementViewMode
                 composable(Screen.Profile.route) { ProfileScreen() }
             }
 
-            NavigationBar(
-            modifier = Modifier.align(Alignment.BottomCenter).background(Color.Transparent),
-            containerColor = Color.Transparent,
-            contentColor = Color.White
-        ) {
+            Column(modifier = Modifier.align(Alignment.BottomCenter).fillMaxWidth()) {
+                AdsterraBannerAd()
+                NavigationBar(
+                    modifier = Modifier.background(Color.Transparent),
+                    containerColor = Color.Transparent,
+                    contentColor = Color.White
+                ) {
             val navBackStackEntry by navController.currentBackStackEntryAsState()
             val currentDestination = navBackStackEntry?.destination
             items.forEach { screen ->
@@ -412,6 +414,7 @@ fun GotchaApp(playerViewModel: PlayerViewModel = viewModel(), engagementViewMode
                 )
             }
         }
+    } // Closes Column
     }
 }
 }
@@ -3300,17 +3303,12 @@ data class LeaderboardPlayer(
 
 object HapticFeedbackHelper {
     private fun getVibrator(context: android.content.Context): Vibrator {
-        val attributionContext = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            context.createAttributionContext("gotcha_vibrations")
-        } else {
-            context
-        }
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-            val vibratorManager = attributionContext.getSystemService(android.content.Context.VIBRATOR_MANAGER_SERVICE) as android.os.VibratorManager
+            val vibratorManager = context.getSystemService(android.content.Context.VIBRATOR_MANAGER_SERVICE) as android.os.VibratorManager
             vibratorManager.defaultVibrator
         } else {
             @Suppress("DEPRECATION")
-            attributionContext.getSystemService(android.content.Context.VIBRATOR_SERVICE) as Vibrator
+            context.getSystemService(android.content.Context.VIBRATOR_SERVICE) as Vibrator
         }
     }
 
